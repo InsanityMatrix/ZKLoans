@@ -24,4 +24,12 @@ npx hardhat console --network localhost
 > await contract.function()
 ```
 
+
+Deploy Procedure:
+```shell
+npx hardhat node
+npx hardhat run scripts/deploy.js --network localhost #Deploy Loans Contract
+npx hardhat run scripts/test_transaction --network localhost #Pre-load contract with 1 transaction
+npx hardhat console --network localhost #Pull up console to interact with Smart Contract
+```
 Created by David Piedra
