@@ -32,6 +32,32 @@ contract ZKLoans {
         }));
     }
     
+    function getFunds() public view returns (uint256) {
+        uint256 funds = 0;
+        for(uint i = 0; i < loanables.length; i++) {
+            funds += loanables[i].loanableEth;
+        }
+        return funds;
+    }
+    
+
+    function getLoan(uint256 loanReq, string memory loanType, uint highestRate) public returns (bool) {
+        //Make sure enough loanable funds with a low enough interest rate
+        uint256 total = 0;
+        for(uint i = 0; i < loanables.length; i++) {
+            if(loanables[i].lowestRate < highestRate) {
+                total += loanables[i].loanableEth;
+            }
+        }
+        if(total < loanReq) {
+            return false;
+        }
+        //Market Matching, fill lowest interest rates first.
+        //TODO: Sorting Algorithm on loanables by lowest interest rate. Then match until order fulfilled. Remove loanables from loanables array. Move to LoanPool?
+        for(uint i = 0; i < loanables.length; i++) {
+
+        }
+    }
     function getLoanables() public view returns (string memory) {
         string memory loans = "";
         for(uint i = 0; i < loanables.length; i++) {

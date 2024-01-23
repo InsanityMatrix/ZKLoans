@@ -14,13 +14,18 @@ async function createTransaction() {
     });
     const provider = ethers.getDefaultProvider();
     const balance = await provider.getBalance(loansAddr);
-    return {transactionHash, balance};
+    return {transactionHash, balance, loans};
 }
 (async () => {
 try {
-    let {txHash, balance} = await createTransaction();
+    let {txHash, balance, loans} = await createTransaction();
+    let lFunds = await loans.getFunds();
+    let loanables = await loans.getLoanables();
     console.log(`TX Hash: ${txHash}`);
     console.log(`Contract Balance: ${balance}`);
+    console.log(`Contract Loanable Funds: ${lFunds}`);
+    console.log(`Loanables: ${loanables}`);
+
 } catch (e) {
     console.log(e);
 }
